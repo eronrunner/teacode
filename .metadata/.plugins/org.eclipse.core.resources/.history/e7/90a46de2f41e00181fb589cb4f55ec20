@@ -1,0 +1,5 @@
+package com.runner.teacode.config;
+
+public class AppConfiguration {
+
+}

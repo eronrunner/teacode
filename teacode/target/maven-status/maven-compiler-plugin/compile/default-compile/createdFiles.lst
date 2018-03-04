@@ -1,0 +1,7 @@
+com\runner\teacode\config\HibernateConfiguration.class
+com\runner\teacode\data\model\Member.class
+com\runner\teacode\config\AppConfiguration.class
+com\runner\teacode\config\AppInitializer.class
+com\runner\teacode\common\utils\DBSessionUtils.class
+com\runner\teacode\data\model\Account.class
+com\runner\teacode\config\PropertiesCongfiguration.class

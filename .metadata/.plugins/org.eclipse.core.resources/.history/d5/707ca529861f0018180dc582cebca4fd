@@ -1,0 +1,189 @@
+package com.runner.teacode.data.model;
+
+import javax.persistence.*;
+
+import org.springframework.http.converter.json.GsonBuilderUtils;
+
+@Entity
+@Table(name = "MEMBER", catalog = "teacode")
+public class Member implements java.io.Serializable {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID", nullable = false, unique = true)
+	private Long id;
+	
+	@Column(name = "FIRSTNAME", nullable = false, length = 255)
+	private String firstname;
+	
+	@Column(name = "LASTNAME", nullable = false, length = 255)
+	private String lastname;
+	
+	@Column(name = "ADDRESS", nullable = false, length = 255)
+	private String address;
+	
+	@Column(name = "PHONE", nullable = false)
+	private String phone;
+	
+	@Column(name = "SOCIAL", nullable = true)
+	private String social;
+	
+	@Column(name = "TYPE", nullable = false, length = 3)
+	private Short type;
+	
+	@ManyToOne
+	@Column(name = "ACCOUNT", nullable = true, unique = true, updatable = false)
+	private Account account;
+
+	public Member() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Member(Long id, String firstname, String lastname, String address, String phone, String social, Short type) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.address = address;
+		this.phone = phone;
+		this.social = social;
+		this.type = type;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getSocial() {
+		return social;
+	}
+
+	public void setSocial(String social) {
+		this.social = social;
+	}
+
+	public Short getType() {
+		return type;
+	}
+
+	public void setType(Short type) {
+		this.type = type;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((account == null) ? 0 : account.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((social == null) ? 0 : social.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Member other = (Member) obj;
+		if (account == null) {
+			if (other.account != null)
+				return false;
+		} else if (!account.equals(other.account))
+			return false;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (firstname == null) {
+			if (other.firstname != null)
+				return false;
+		} else if (!firstname.equals(other.firstname))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastname == null) {
+			if (other.lastname != null)
+				return false;
+		} else if (!lastname.equals(other.lastname))
+			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		if (social == null) {
+			if (other.social != null)
+				return false;
+		} else if (!social.equals(other.social))
+			return false;
+		if (type == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return GsonBuilderUtils.gsonBuilderWithBase64EncodedByteArrays().create().toJson(this);
+	}
+	
+}

@@ -1,0 +1,5 @@
+package com.runner.teacode.data.model;
+
+public class Account {
+
+}

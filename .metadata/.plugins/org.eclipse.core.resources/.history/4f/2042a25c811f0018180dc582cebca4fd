@@ -1,0 +1,27 @@
+package com.runner.teacode.data.model;
+
+import java.util.List;
+
+import javax.persistence.*;
+
+import org.hibernate.annotations.Cascade;
+
+@Entity
+@Table(name = "ACCOUNT")
+public class Account {
+	@Id
+	@Column(name = "USERNAME", nullable = false, length = 60, unique = true, updatable = false)
+	private String username;
+	
+	@Column(name = "PASSWORD", nullable = false)
+	private String password;
+	
+	@Column(name = "REGISTERED_EMAIL", nullable = false, length = 300, unique = true)
+	private String registeredEmail;
+	
+	@Column(name = "TYPE", nullable = false, length = 3)
+	private Short type;
+	
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+	private List<User> users;
+}

@@ -1,0 +1,29 @@
+package com.runner.teacode.data.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "USER", catalog = "teacode")
+public class MEMBER {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID", nullable = false, unique = true)
+	private Long id;
+	
+	@Column(name = "FIRSTNAME", nullable = false, length = 255)
+	private String firstname;
+	
+	@Column(name = "LASTNAME", nullable = false, length = 255)
+	private String lastname;
+	
+	@Column(name = "ADDRESS", nullable = false, length = 255)
+	private String address;
+	
+	@Column(name = "PHONE", nullable = false)
+	private String phone;
+	
+	@Column(name = "SOCIAL", nullable = true)
+	private String social;
+	
+	@Column(name = "TYPE")
+}

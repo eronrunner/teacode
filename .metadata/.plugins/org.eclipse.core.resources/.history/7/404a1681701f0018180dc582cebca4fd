@@ -1,0 +1,71 @@
+package com.runner.teacode.config;
+
+import java.io.IOException;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+@Configuration
+//@EnableAutoConfiguration(exclude=HibernateJpaAutoConfiguration.class)
+@EnableTransactionManagement
+@PropertySource("classpath:/config/hibernate.properties")
+public class HibernateConfiguration {
+	@Autowired
+	private static Environment env;
+	final public static String HIBERNATE_CONNECTION_DRIVER_CLASS = env.getProperty("hibernate.connection.driver_class");
+	final public static String HIBERNATE_CONNECTION_URL = env.getProperty("hibernate.connection.url");
+	final public static String HIBERNATE_CONNECTION_USERNAME = env.getProperty("hibernate.connection.username");
+	final public static String HIBERNATE_CONNECTION_PASSWORD = env.getProperty("hibernate.connection.password");
+	final public static String HIBERNATE_PROPERTY_CONNECTION_AUTOCOMMIT = env.getProperty("hibernate.property.autocommit");
+	final public static String HIBERNATE_PROPERTY_SHOW_SQL = env.getProperty("hibernate.property.show_sql");
+	final public static String HIBERNATE_PROPERTY_FORMAT_SQL = env.getProperty("hibbernate.property.format_sql");
+	final public static String HIBERNATE_PROPERTY_DIALECT = env.getProperty("hibernate.properties.dialect");
+	final public static String HIBERNATE_PROPERTY_DEFAULT_SCHEMA = env.getProperty("hibernate.property.default_schema");
+	final public static String HIBERNATE_PROPERTY_HBM2DDL_AUTO = env.getProperty("hibernate.property.hbm2ddl.auto");
+	
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName(HIBERNATE_CONNECTION_DRIVER_CLASS);
+		dataSource.setUrl(HIBERNATE_CONNECTION_URL);
+		dataSource.setUsername(HIBERNATE_CONNECTION_USERNAME);
+		dataSource.setPassword(HIBERNATE_CONNECTION_PASSWORD);
+		return dataSource;
+	}
+	
+	public Properties properties(){
+		Properties  properties = new Properties();
+		properties.put("hibernate.show_sql", HIBERNATE_PROPERTY_SHOW_SQL);
+		properties.put("hibernate.format_sql", HIBERNATE_PROPERTY_FORMAT_SQL);
+		properties.put("hibernate.connection.autocommit", HIBERNATE_PROPERTY_CONNECTION_AUTOCOMMIT);
+		properties.put("hibernate.dialect", HIBERNATE_PROPERTY_DIALECT);
+		properties.put("hibernate.default_schema", HIBERNATE_PROPERTY_DEFAULT_SCHEMA);
+		properties.put("hibernate.hbm2ddl.auto", HIBERNATE_PROPERTY_HBM2DDL_AUTO);
+		return properties;
+	}
+	
+	@Bean
+	public SessionFactory sessionFactory() {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		sessionFactory.setDataSource(dataSource());
+		sessionFactory.setHibernateProperties(properties());
+		try {
+			sessionFactory.afterPropertiesSet();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sessionFactory.getObject();
+	}
+}

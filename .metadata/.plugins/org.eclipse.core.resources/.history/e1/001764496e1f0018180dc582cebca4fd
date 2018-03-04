@@ -1,0 +1,42 @@
+package com.runner.teacode.config;
+
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+@Configuration
+//@EnableAutoConfiguration(exclude=HibernateJpaAutoConfiguration.class)
+@EnableTransactionManagement
+@PropertySource("classpath:/config/hibernate.properties")
+public class HibernateConfiguration {
+	@Autowired
+	private static Environment env;
+	final public static String HIBERNATE_CONNECTION_DRIVER_CLASS = env.getProperty("hibernate.connection.driver_class");
+	final public static String HIBERNATE_CONNECTION_URL = env.getProperty("hibernate.connection.url");
+	final public static String HIBERNATE_CONNECTION_USERNAME = env.getProperty("hibernate.connection.username");
+	final public static String HIBERNATE_CONNECTION_PASSWORD = env.getProperty("hibernate.connection.password");
+	@Bean
+	public DataSource dataSource() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName(HIBERNATE_CONNECTION_DRIVER_CLASS);
+		dataSource.setUrl(HIBERNATE_CONNECTION_URL);
+		dataSource.setUsername(HIBERNATE_CONNECTION_USERNAME);
+		dataSource.setPassword(HIBERNATE_CONNECTION_PASSWORD);
+		return dataSource;
+	}
+	
+	public Properties properties(){
+		Properties  properties = new Properties();
+		
+		return properties;
+	}
+}

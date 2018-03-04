@@ -1,0 +1,10 @@
+package com.runner.teacode.data.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "USER", catalog = "teacode")
+public class User {
+
+}
