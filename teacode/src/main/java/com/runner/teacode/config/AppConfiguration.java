@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -16,19 +17,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.runner.teacode")
-public class AppConfiguration extends WebMvcConfigurerAdapter{
-	
+public class AppConfiguration extends WebMvcConfigurerAdapter {
+
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// TODO Auto-generated method stub
-		converters.add(createXmlHttpMessageConverter());
 		converters.add(new MappingJackson2HttpMessageConverter());
 		super.configureMessageConverters(converters);
 	}
 
 	private HttpMessageConverter<?> createXmlHttpMessageConverter() {
-		// TODO Auto-generated method stub
+//		MarshallingHttpMessageConverter xmlConverter = new MarshallingHttpMessageConverter();
+//
+//		XStreamMarshaller xstreamMarshaller = new XStreamMarshaller();
+//		xmlConverter.setMarshaller(xstreamMarshaller);
+//		xmlConverter.setUnmarshaller(xstreamMarshaller);
+
 		return null;
 	}
-	
+
 }

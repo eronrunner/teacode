@@ -7,7 +7,7 @@ import javax.persistence.*;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 
 @Entity
-@Table(name = "ACCOUNT", catalog = "teacode")
+@Table(name = "ACCOUNT", catalog = "teacode", schema = "teacode")
 public class Account implements java.io.Serializable{
 	/**
 	 * 
@@ -27,8 +27,8 @@ public class Account implements java.io.Serializable{
 	@Column(name = "TYPE", nullable = false, length = 3)
 	private Short type;
 	
-	@OneToMany(mappedBy = "ACCOUNT", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
-	private List<Member> users;
+	@OneToMany(mappedBy = "account", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+	private List<Member> members;
 
 	public Account() {
 		super();
@@ -75,12 +75,12 @@ public class Account implements java.io.Serializable{
 		this.type = type;
 	}
 
-	public List<Member> getUsers() {
-		return users;
+	public List<Member> getMembers() {
+		return members;
 	}
 
-	public void setUsers(List<Member> users) {
-		this.users = users;
+	public void setUsers(List<Member> members) {
+		this.members = members;
 	}
 
 	public static long getSerialversionuid() {

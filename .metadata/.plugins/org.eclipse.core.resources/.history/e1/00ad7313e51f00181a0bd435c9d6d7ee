@@ -1,0 +1,13 @@
+hibernate.connection.username=teacode
+hibernate.connection.password=teacode
+hibernate.connection.url=jdbc\:mysql\://127.0.0.1\:3306/teacode
+hibernate.property.dialect=org.hibernate.dialect.Dialect
+hibernate.connection.driver_class=com.mysql.jdbc.Driver
+hibernate.property.cache.use_second_level_cache=false
+hibernate.property.cache.region.factory_class=org.hibernate.cache.ehcache.EhCacheRegionFactory
+hibernate.property.connection.autocommit=true
+hibernate.property.default_schema=teacode
+hibernate.property.hbm2ddl.auto=create
+hibernate.property.show_sql=true
+hibernate.property.transaction.enable_lazy_load_no_trans=true
+hibernate.property.format_sql=true

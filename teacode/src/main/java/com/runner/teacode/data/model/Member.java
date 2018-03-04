@@ -5,7 +5,7 @@ import javax.persistence.*;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 
 @Entity
-@Table(name = "MEMBER", catalog = "teacode")
+@Table(name = "MEMBER", catalog = "teacode", schema = "teacode")
 public class Member implements java.io.Serializable {
 	/**
 	 * 
@@ -36,7 +36,7 @@ public class Member implements java.io.Serializable {
 	private Short type;
 	
 	@ManyToOne
-	@Column(name = "ACCOUNT", nullable = true, unique = true, updatable = false)
+	@JoinColumn(name = "ACCOUNT", nullable = true, unique = true, updatable = false)
 	private Account account;
 
 	public Member() {
