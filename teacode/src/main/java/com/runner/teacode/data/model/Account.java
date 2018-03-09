@@ -4,7 +4,11 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
 import org.springframework.http.converter.json.GsonBuilderUtils;
+import org.springframework.util.StreamUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "ACCOUNT", catalog = "teacode", schema = "teacode")
@@ -28,6 +32,7 @@ public class Account implements java.io.Serializable{
 	private Short type;
 	
 	@OneToMany(mappedBy = "account", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+	@JsonIgnore
 	private List<Member> members;
 
 	public Account() {
@@ -52,7 +57,7 @@ public class Account implements java.io.Serializable{
 	}
 
 	public String getPassword() {
-		return password;
+		return "*********";
 	}
 
 	public void setPassword(String password) {
@@ -79,14 +84,18 @@ public class Account implements java.io.Serializable{
 		return members;
 	}
 
-	public void setUsers(List<Member> members) {
+	public void setMembers(List<Member> members) {
 		this.members = members;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
+	public String Gson() {
+		return GsonBuilderUtils.gsonBuilderWithBase64EncodedByteArrays().create().toJson(this);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -132,7 +141,8 @@ public class Account implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return GsonBuilderUtils.gsonBuilderWithBase64EncodedByteArrays().create().toJson(this);
+		return "Account [username=" + username + ", password=" + password + ", registeredEmail=" + registeredEmail
+				+ ", type=" + type + "]";
 	}
-	
+
 }

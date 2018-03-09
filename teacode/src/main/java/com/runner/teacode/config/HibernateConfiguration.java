@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@EnableAutoConfiguration(exclude=HibernateJpaAutoConfiguration.class)
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:hibernate.properties")
+@PropertySource("classpath:/config/hibernate.properties")
 public class HibernateConfiguration {
 	@Autowired
 	private Environment env;
@@ -50,7 +50,7 @@ public class HibernateConfiguration {
 	
 	public Properties properties(){
 		Properties  properties = new Properties();
-		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		properties.put("hibernate.dialect", env.getProperty("hibernate.property.dialect"));
 		properties.put("hibernate.show_sql", env.getProperty("hibernate.property.show_sql"));
         properties.put("hibernate.format_sql", env.getProperty("hibernate.property.format_sql"));
         properties.put("hibernate.connection.autocommit", env.getProperty("hibernate.property.connection.autocommit"));

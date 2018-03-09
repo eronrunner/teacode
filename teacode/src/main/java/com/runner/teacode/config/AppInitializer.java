@@ -2,10 +2,12 @@ package com.runner.teacode.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 public class AppInitializer implements WebApplicationInitializer {
 
@@ -17,6 +19,12 @@ public class AppInitializer implements WebApplicationInitializer {
 		context.setConfigLocation("com.runner.teacode.config");
 
 		servletContext.addListener(new ContextLoaderListener(context));
+		
+		ServletRegistration.Dynamic dispatcher = servletContext
+		          .addServlet("dispatcher", new DispatcherServlet(context));
+		         
+		        dispatcher.setLoadOnStartup(1);
+		        dispatcher.addMapping("/");
 	}
-
+	
 }
