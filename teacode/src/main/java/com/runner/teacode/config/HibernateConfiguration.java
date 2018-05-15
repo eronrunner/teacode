@@ -56,6 +56,8 @@ public class HibernateConfiguration {
         properties.put("hibernate.connection.autocommit", env.getProperty("hibernate.property.connection.autocommit"));
 		properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.property.hbm2ddl.auto"));
 		properties.put("hibernate.default_schema", env.getProperty("hibernate.property.default_schema"));
+		properties.put("hibernate.current_session_context_class", env.getProperty("hibernate.property.current_session_context_class"));
+        properties.put("hibernate.transaction.factory_class", env.getProperty("hibernate.property.transaction.factory_class"));
 //		properties.put("javax.persistence.schema-generation.database.action", "create");
 //		properties.put("hibernate.cache.use_second_level_cache", env.getProperty("hibernate.property.cache.use_second_level_cache"));
 //		properties.put("hibernate.cache.region.factory_class", env.getProperty("hibernate.property.cache.region.factory_class"));

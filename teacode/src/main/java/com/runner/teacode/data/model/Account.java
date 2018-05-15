@@ -1,12 +1,12 @@
 package com.runner.teacode.data.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Fetch;
 import org.springframework.http.converter.json.GsonBuilderUtils;
-import org.springframework.util.StreamUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,30 +22,38 @@ public class Account implements java.io.Serializable{
 	@Column(name = "USERNAME", nullable = false, length = 60, unique = true, updatable = false)
 	private String username;
 	
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(name = "PASSWORD", nullable = false, columnDefinition="TEXT")
 	private String password;
 	
-	@Column(name = "REGISTERED_EMAIL", nullable = false, length = 300, unique = true)
+	@Column(name = "REGISTERED_EMAIL", nullable = false, length = 300, unique = true, columnDefinition="TEXT")
 	private String registeredEmail;
 	
 	@Column(name = "TYPE", nullable = false, length = 3)
 	private Short type;
 	
-	@OneToMany(mappedBy = "account", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+	@Column(name = "AVATAR", nullable = true, length = 65535, columnDefinition="TEXT")
+	private String avatar;
+	
+	@Column(name = "STATE", nullable = false, length = 3)
+	private Short state;
+	
+	@OneToMany(mappedBy = "account", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Member> members;
+	private List<Member> members = new ArrayList<Member>();
 
 	public Account() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Account(String username, String password, String registeredEmail, Short type) {
+	public Account(String username, String password, String registeredEmail, Short type, Short state , String avatar) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.registeredEmail = registeredEmail;
 		this.type = type;
+		this.state = state;
+		this.avatar = avatar;
 	}
 
 	public String getUsername() {
@@ -57,7 +65,7 @@ public class Account implements java.io.Serializable{
 	}
 
 	public String getPassword() {
-		return "*********";
+		return password;
 	}
 
 	public void setPassword(String password) {
@@ -80,6 +88,14 @@ public class Account implements java.io.Serializable{
 		this.type = type;
 	}
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public List<Member> getMembers() {
 		return members;
 	}
@@ -92,16 +108,27 @@ public class Account implements java.io.Serializable{
 		return serialVersionUID;
 	}
 	
+	public Short getState() {
+		return state;
+	}
+
+	public void setState(Short state) {
+		this.state = state;
+	}
+
 	public String Gson() {
 		return GsonBuilderUtils.gsonBuilderWithBase64EncodedByteArrays().create().toJson(this);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
+		result = prime * result + ((members == null) ? 0 : members.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((registeredEmail == null) ? 0 : registeredEmail.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -116,6 +143,16 @@ public class Account implements java.io.Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Account other = (Account) obj;
+		if (avatar == null) {
+			if (other.avatar != null)
+				return false;
+		} else if (!avatar.equals(other.avatar))
+			return false;
+		if (members == null) {
+			if (other.members != null)
+				return false;
+		} else if (!members.equals(other.members))
+			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
@@ -125,6 +162,11 @@ public class Account implements java.io.Serializable{
 			if (other.registeredEmail != null)
 				return false;
 		} else if (!registeredEmail.equals(other.registeredEmail))
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
 			return false;
 		if (type == null) {
 			if (other.type != null)
@@ -137,12 +179,6 @@ public class Account implements java.io.Serializable{
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Account [username=" + username + ", password=" + password + ", registeredEmail=" + registeredEmail
-				+ ", type=" + type + "]";
 	}
 
 }

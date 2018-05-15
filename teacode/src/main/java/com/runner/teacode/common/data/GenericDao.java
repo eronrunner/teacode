@@ -3,6 +3,9 @@ package com.runner.teacode.common.data;
 import java.io.Serializable;
 import java.util.List;
 
+import com.runner.teacode.common.pagination.Page;
+import com.runner.teacode.common.pagination.Pageable;
+
 public interface GenericDao<T extends Serializable> {
 	
 	T findOne(Serializable id);
@@ -18,4 +21,6 @@ public interface GenericDao<T extends Serializable> {
 	T deleteById(Serializable entityId);
 
 	void setClazz(Class<T> clazz);
+
+	List<T> find(Pageable pageable, Page<T> page);
 }

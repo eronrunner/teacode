@@ -9,7 +9,7 @@ import com.runner.teacode.common.data.GenericDao;
 import com.runner.teacode.data.TeacodeConstants;
 import com.runner.teacode.data.model.Account;
 import com.runner.teacode.service.AccountManipulationService;
-import com.runner.teacode.web.accountmanagement.bussiness.BussinessExceptionContainer.AccountExistException;
+import com.runner.teacode.web.bussiness.exception.BussinessExceptionContainer.AccountExistException;
 
 @Service
 public class AccountManipulationServiceImpl implements AccountManipulationService {

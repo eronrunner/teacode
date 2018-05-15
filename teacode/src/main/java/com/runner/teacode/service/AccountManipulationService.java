@@ -3,7 +3,7 @@ package com.runner.teacode.service;
 import java.io.Serializable;
 
 import com.runner.teacode.data.model.Account;
-import com.runner.teacode.web.accountmanagement.bussiness.BussinessExceptionContainer.AccountExistException;
+import com.runner.teacode.web.bussiness.exception.BussinessExceptionContainer.AccountExistException;
 
 public interface AccountManipulationService {
 	
